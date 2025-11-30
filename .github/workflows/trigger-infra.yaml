@@ -1,0 +1,28 @@
+name: Trigger Infra Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  trigger-infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Node App Repo
+        uses: actions/checkout@v4
+
+      - name: Trigger Infra Repo Deployment
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: jfish1996/infra_demo          # <-- replace with your org/repo
+          event-type: app-updated
+          client-payload: |
+            {
+              "branch": "${{ github.ref_name }}",
+              "commit": "${{ github.sha }}"
+            }
