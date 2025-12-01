@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.get('/testingcicd', (req, res) => {
+  res.send('Testing CI/CD pipeline for infrastructure deployment!')
+})
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
